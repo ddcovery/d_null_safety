@@ -9,27 +9,28 @@ The final objective is to write thinks like:
   assert( peter.d!"parent".d!"name".get == "John" )
 ```
   
-It is, basically, a monad like struct named **Dot!T** with a map method named **dot** and an final unwrapper named **get**
+It is, basically, a monad like struct named ``Dot!T`` with a map method named ``dot`` and an final unwrapper named ``get``
 
 ```D
 // peter?.name == "Peter"
 assert( Dot!Person(peter).dot(a=>a.name).get == "Peter" );
+assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null );
 ```
 
-The **get** unwrapper must include a **default value** for not nullable types
+The ``get`` unwrapper **must** include a **default value** for not nullable types
   
 ```D
 // peter?.name?.length ?? 0 == 5
 Dot!string(peter).dot(a=>a.name).dot(a=>a.length).get(0) == 5;
 ```
 
-Result can be obtained as Nullable!T monad instead unwrapping its value
+Result can be obtained as ``Nullable!T`` monad instead unwrapping its value
 
 ```D
 Dot!string(peter).dot(a=>a.parent).dot(a=>a.name).asNullable.isNull;
 ```
 
-For a normalized notation, you can substitute the "Dot!T" constructor by the *dot* method
+For a normalized notation, you can substitute the ``Dot!T`` constructor by the ``dot`` method
 
 ```D
 // peter?.name?.length ?? 0 == 5
@@ -43,7 +44,7 @@ To avoid the "lambda" notation, the struct offers a the **d!** method that allow
 dot(peter).d!"name".d!"length".get(0) == 5;
 ```
 
-Finally, you can create the wrapper Dot!T struct and access one property directly using the "d" method.
+Finally, you can create the wrapper ``Dot!T`` struct and access one property directly using the ``d`` method.
 
 ```D
 // peter?.name?.length ?? 0 == 5
