@@ -103,7 +103,7 @@ struct Dot(T)
 
 /**
   Alternative to Dot!T() syntax.  
-  It gives a uniform name syntax (constructor and accessor shares the same name)
+  This factory method allows an uniform name syntax (factory and accessor shares the same name)
   * Example: 
     Dot!string("hello").dot(a=>a.length).get 
     // can be written as
@@ -186,6 +186,7 @@ unittest
 	assert( dot!Person(null).dot(a=>cast(string) null).asNullable.isNull);
 }
 
+private:
 
 /**
   Access to a property of an element by its name.
