@@ -37,14 +37,14 @@ For a normalized notation, you can use the ``dot`` factory method instead ``Dot!
 dot(peter).dot(a=>a.name).dot(a=>a.length).get(0)==5;
 ```
 
-To avoid the "lambda" notation, the struct offers the **d!** method that allows you to write the name of the property directly
+To avoid the "lambda" notation, the struct offers the **d!** method member that allows you to write the name of the property directly
 
 ```D
 // peter?.name?.length ?? 0 == 5
 dot(peter).d!"name".d!"length".get(0) == 5;
 ```
 
-Finally, you can create the ``Dot!T`` struct and access one property directly using the ``d``factory method.
+Finally, you can create the ``Dot!T`` struct and access one property directly using the **``d!``** factory method (unifying the syntax withy the ``d!`` struct member).
 
 ```D
 // peter?.name?.length ?? 0 == 5
