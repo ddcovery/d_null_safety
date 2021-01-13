@@ -43,7 +43,7 @@ To avoid the "lambda" notation, the struct offers a the **d!** method that allow
 dot(peter).d!"name".d!"length".get(0) == 5;
 ```
 
-Finally, you can create the wrapper struct and access one property directly using the "d" method.
+Finally, you can create the wrapper Dot!T struct and access one property directly using the "d" method.
 
 ```D
 // peter?.name?.length ?? 0 == 5
