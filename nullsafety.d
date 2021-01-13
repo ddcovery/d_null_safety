@@ -121,7 +121,7 @@ auto dot(T)(T t)
  Example:
    assert( "hello".d!"length".get(0) == 5 );
    // is equivalent to
-   assert( "Dot!string("hello").d!"length".get(0) == 5" );"   
+   assert( Dot!string("hello").d!"length".get(0) == 5 );"   
  */
 auto d(alias propName, T)(T t)
 {
