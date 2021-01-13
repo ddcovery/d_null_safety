@@ -108,13 +108,12 @@ struct Dot(T)
 
 
 /**
-	Alternative to Dot!T() syntax.  
-	It gives a uniform name syntax (constructor and accessor shares the same name)
-	* Example: 
-	  Dot!string("hello").dot(a=>a.length).get 
-	  // can be written as
-	  dot("hello").dot(a=>a.length).get
-
+  Alternative to Dot!T() syntax.  
+  It gives a uniform name syntax (constructor and accessor shares the same name)
+  * Example: 
+    Dot!string("hello").dot(a=>a.length).get 
+    // can be written as
+    dot("hello").dot(a=>a.length).get
 */
 auto dot(T)(T t)
 {
@@ -150,12 +149,12 @@ unittest
   
 	Person peter = new Person("Peter", new Person("John", null));
 
-	// peter?.father?.name is "John"
+	// peter?.father?.name == "John"
 	assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.name).get == "John");
 	assert( dot(peter).dot(a=>a.father).dot(a=>a.name).get == "John");
 	assert( dot(peter).d!"father".d!"name".get == "John");
 	assert( peter.d!"father".d!"name".get == "John");
-	// peter?.father?.name??"Unknown" is "John"
+	// peter?.father?.name??"Unknown" == "John"
 	assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "John");
 	assert( dot(peter).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "John");
 	assert( peter.d!"father".d!"name".get("Unknown") == "John");
@@ -163,16 +162,14 @@ unittest
 	assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null);
 	assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null);
 	assert( peter.d!"father".d!"father".d!"name".get is null);
-	// peter?.father?.father?.name ?? "Unknown" is "Unknown"
+	// peter?.father?.father?.name ?? "Unknown" == "Unknown"
 	assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "Unknown");
 	assert( peter.d!"father".d!"father".d!"name".get("Unknown") == "Unknown" );
-	// peter?.father?.father?.name?.length??0 is 0
+	// peter?.father?.father?.name?.length??0 == 0
 	assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).dot(a=>a.length).get(0) == 0);
-	assert( peter.d!"father".d!"father".d!"name".d!"length".get(0) == 0 );
-   
-	// peter?.name?.length ?? 0 == 5
+	assert( peter.d!"father".d!"father".d!"name".d!"length".get(0) == 0 );  
+	// peter?.father?.name?.length ?? 0 == 4
 	assert( peter.d!"father".d!"name".d!"length".get(0) == 4);
-	
 	// (null as string)?.length ?? 0 == 0
 	assert( dot!string(null).d!"length".get(0)==0);
 	// 0??1 == 0
@@ -189,12 +186,10 @@ unittest
 	assert( dot!int(55).get(0) == 55);
 	// Unwrap null
 	assert( dot!string(null).get is null);
-
 	// Obtain result as Monad instead getting the value... 
 	assert( dot!Person(null).d!"father".d!"father".d!"father".d!"name".asNullable.isNull);   
 	// Avoid returning typeof(null) in .dot() method
 	assert( dot!Person(null).dot(a=>cast(string) null).asNullable.isNull);
-
 }
 
 
@@ -211,8 +206,7 @@ template unaryProp(alias propName)
 	pure auto unaryProp(ElementType)(auto ref ElementType a)
 	{
 		return mixin("a." ~ propName);
-	}
- 
+	} 
 }
 unittest 
 {
