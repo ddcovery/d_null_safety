@@ -1,11 +1,5 @@
 module nullsafety;
 
-import std.stdio;
-import std.range;
-import std.format;
-import std.functional;
-import std.algorithm;
-import std.algorithm.iteration;
 import std.typecons;
 import std.traits;
 
@@ -140,8 +134,8 @@ unittest
 	{
 		string name;
 		Person father;
-
-		this(string name, Person father){	
+		this(string name, Person father)
+		{	
 			this.name=name;
 			this.father=father;
 		}
