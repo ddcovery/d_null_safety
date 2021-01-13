@@ -9,7 +9,7 @@ The final objective is to write thinks like:
   assert( peter.d!"parent".d!"name".get == "John" )
 ```
   
-It is, basically, a monad like struct named ``Dot!T`` with a *map* method named ``dot`` and an unwrapper named ``get``
+It is, basically, a monad like struct ``Dot!T`` with a *map* method named ``dot`` and an unwrapper named ``get``
 
 ```D
 // peter?.name == "Peter"
