@@ -35,7 +35,7 @@ import std.traits;
   // peter?.name?.length ?? 0 == 5
   dot(peter).dot(a=>a.name).dot(a=>a.length).get(0)==5;
 
-	To avoid the "lambda" notation, the struct offers the "d" method as an alternative to "dot":
+  To avoid the "lambda" notation, the struct offers the "d" method as an alternative to "dot":
 
   Example:
   // peter?.name?.length ?? 0 == 5
@@ -58,10 +58,13 @@ struct Dot(T)
 	{
 		static if(isAssignable!(T, typeof(null) ))
 		{
-			if(v !is null){
+			if(v !is null)
+			{
 				value = nullable(v);
 			}
-		} else {
+		} 
+		else 
+		{
 			value = nullable(v);
 		}
 	}
@@ -76,7 +79,8 @@ struct Dot(T)
 		}	
 	}
 	template d(alias propName) {
-		auto d(){
+		auto d()
+		{
 			return dot(a => a.unaryProp!propName);
 		}
 	}
@@ -93,8 +97,11 @@ struct Dot(T)
 		}
 	}
 
-	Nullable!T asNullable(){
-		return value.isNull ? Nullable!T() : Nullable!T(value.get);
+	Nullable!T asNullable()
+	{
+		return value.isNull ? 
+			Nullable!T() : 
+			Nullable!T(value.get);
 	}
 	
 }
@@ -109,8 +116,9 @@ struct Dot(T)
 	  dot("hello").dot(a=>a.length).get
 
 */
-auto dot(T)(T t){
-  return Dot!T(t);
+auto dot(T)(T t)
+{
+	return Dot!T(t);
 }
 
 
@@ -122,11 +130,13 @@ auto dot(T)(T t){
    // is equivalent to
    assert( "Dot!string("hello").d!"length".get(0) == 5" );"   
  */
-auto d(alias propName, T)(T t){
-  return Dot!T(t).d!propName;
+auto d(alias propName, T)(T t)
+{
+	return Dot!T(t).d!propName;
 }
 
-unittest {
+unittest 
+{
 	class Person 
 	{
 		string name;
@@ -140,50 +150,50 @@ unittest {
   
 	Person peter = new Person("Peter", new Person("John", null));
 
-  // peter?.father?.name is "John"
-  assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.name).get == "John");
-  assert( dot(peter).dot(a=>a.father).dot(a=>a.name).get == "John");
-  assert( dot(peter).d!"father".d!"name".get == "John");
-  assert( peter.d!"father".d!"name".get == "John");
-  // peter?.father?.name??"Unknown" is "John"
+	// peter?.father?.name is "John"
+	assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.name).get == "John");
+	assert( dot(peter).dot(a=>a.father).dot(a=>a.name).get == "John");
+	assert( dot(peter).d!"father".d!"name".get == "John");
+	assert( peter.d!"father".d!"name".get == "John");
+	// peter?.father?.name??"Unknown" is "John"
 	assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "John");
-  assert( dot(peter).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "John");
-  assert( peter.d!"father".d!"name".get("Unknown") == "John");
-  // peter?.father?.father?.name is null
-  assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null);
-  assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null);
-  assert( peter.d!"father".d!"father".d!"name".get is null);
-  // peter?.father?.father?.name ?? "Unknown" is "Unknown"
-  assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "Unknown");
-  assert( peter.d!"father".d!"father".d!"name".get("Unknown") == "Unknown" );
-  // peter?.father?.father?.name?.length??0 is 0
-  assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).dot(a=>a.length).get(0) == 0);
-  assert( peter.d!"father".d!"father".d!"name".d!"length".get(0) == 0 );
+	assert( dot(peter).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "John");
+	assert( peter.d!"father".d!"name".get("Unknown") == "John");
+	// peter?.father?.father?.name is null
+	assert( Dot!Person(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null);
+	assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get is null);
+	assert( peter.d!"father".d!"father".d!"name".get is null);
+	// peter?.father?.father?.name ?? "Unknown" is "Unknown"
+	assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).get("Unknown") == "Unknown");
+	assert( peter.d!"father".d!"father".d!"name".get("Unknown") == "Unknown" );
+	// peter?.father?.father?.name?.length??0 is 0
+	assert( dot(peter).dot(a=>a.father).dot(a=>a.father).dot(a=>a.name).dot(a=>a.length).get(0) == 0);
+	assert( peter.d!"father".d!"father".d!"name".d!"length".get(0) == 0 );
    
-  // peter?.name?.length ?? 0 == 5
-  assert( peter.d!"father".d!"name".d!"length".get(0) == 4);
+	// peter?.name?.length ?? 0 == 5
+	assert( peter.d!"father".d!"name".d!"length".get(0) == 4);
 	
 	// (null as string)?.length ?? 0 == 0
-  assert( dot!string(null).d!"length".get(0)==0);
-  // 0??1 == 0
-  assert( dot(0).get(1)==0);
-  // (null as Person)?.name is null
-  assert( dot!Person(null).dot(a=>a.name).get is null);
-  // (null as Person)?.name?.length ?? 0 == 0
-  assert( dot!Person(null).dot(a=>a.name).dot(a=>a.length).get(0) == 0);
-  // (null as Person)?.father?.father is null
-  assert( dot!Person(null).dot(a=>a.father).get is null);
+	assert( dot!string(null).d!"length".get(0)==0);
+	// 0??1 == 0
+	assert( dot(0).get(1)==0);
+	// (null as Person)?.name is null
+	assert( dot!Person(null).dot(a=>a.name).get is null);
+	// (null as Person)?.name?.length ?? 0 == 0
+	assert( dot!Person(null).dot(a=>a.name).dot(a=>a.length).get(0) == 0);
+	// (null as Person)?.father?.father is null
+	assert( dot!Person(null).dot(a=>a.father).get is null);
 	// Unwrap nullable type
-  assert( dot!Person(peter).get == peter);	
-  // Unwrap not nullable type
-  assert( dot!int(55).get(0) == 55);
-  // Unwrap null
-  assert( dot!string(null).get is null);
+	assert( dot!Person(peter).get == peter);	
+	// Unwrap not nullable type
+	assert( dot!int(55).get(0) == 55);
+	// Unwrap null
+	assert( dot!string(null).get is null);
 
-  // Obtain result as Monad instead getting the value... 
-  assert( dot!Person(null).d!"father".d!"father".d!"father".d!"name".asNullable.isNull);   
-  // Avoid returning typeof(null) in .dot() method
-  assert( dot!Person(null).dot(a=>cast(string) null).asNullable.isNull);
+	// Obtain result as Monad instead getting the value... 
+	assert( dot!Person(null).d!"father".d!"father".d!"father".d!"name".asNullable.isNull);   
+	// Avoid returning typeof(null) in .dot() method
+	assert( dot!Person(null).dot(a=>cast(string) null).asNullable.isNull);
 
 }
 
@@ -195,18 +205,19 @@ unittest {
  */
 template unaryProp(alias propName)
 {
-
 	static assert(is(typeof(propName) : string), "Sorry, propName must be an string");
 	static assert(isValidSymbolName(propName), "Sorry, propName must be a valid symbol name");
 	
-	pure auto unaryProp(ElementType)(auto ref ElementType a){
+	pure auto unaryProp(ElementType)(auto ref ElementType a)
+	{
 		return mixin("a." ~ propName);
 	}
  
 }
-unittest {
-  assert( "hello".unaryProp!"length" == 5 );
-  assert( "Mataró".unaryProp!"length" == "Mataró".length );
+unittest 
+{
+	assert( "hello".unaryProp!"length" == 5 );
+	assert( "Mataró".unaryProp!"length" == "Mataró".length );
 }
 
 /**
@@ -218,35 +229,30 @@ pure bool isValidSymbolName(string name)
 	pure bool isAlpha(char a) { return a>='A' && a<='Z' || a>='a' && a<='z'; }
 
 	int i = 0;
-	while(i<name.length && name[i]=='_' ){
+	while(i<name.length && name[i]=='_' ) i++;
+	if(i<name.length && isAlpha(name[i]) )
+	{
 		i++;
-	}
-	if(i<name.length && isAlpha(name[i]) ){
-		i++;
-		while(i<name.length && (name[i]=='_' || isAlpha(name[i]) || isDigit(name[i]) )){
-			i++;
-		}
+		while( i<name.length && (name[i]=='_' || isAlpha(name[i]) || isDigit(name[i])) ) i++;
 	}
 	return i==name.length;
-
 }
 
 unittest {
 	assert( isValidSymbolName("_a"));
-  assert( isValidSymbolName("a"));
-  assert( isValidSymbolName("A"));
-  assert( isValidSymbolName("_h1"));
-  assert( isValidSymbolName("h1"));
-  assert( isValidSymbolName("H1"));
-  assert( isValidSymbolName("_hi2"));
-  assert( isValidSymbolName("_Hi2"));
-  assert( isValidSymbolName("_H_i_2"));
-  assert( isValidSymbolName("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"));
-  assert( !isValidSymbolName("1"));
-  assert( !isValidSymbolName("_1"));
-  assert( !isValidSymbolName(" a"));
-  assert( !isValidSymbolName("a "));
-  assert( !isValidSymbolName(" "));
-  assert( !isValidSymbolName("ñ"));  
+	assert( isValidSymbolName("a"));
+	assert( isValidSymbolName("A"));
+	assert( isValidSymbolName("_h1"));
+	assert( isValidSymbolName("h1"));
+	assert( isValidSymbolName("H1"));
+	assert( isValidSymbolName("_hi2"));
+	assert( isValidSymbolName("_Hi2"));
+	assert( isValidSymbolName("_H_i_2"));
+	assert( isValidSymbolName("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"));
+	assert( !isValidSymbolName("1"));
+	assert( !isValidSymbolName("_1"));
+	assert( !isValidSymbolName(" a"));
+	assert( !isValidSymbolName("a "));
+	assert( !isValidSymbolName(" "));
+	assert( !isValidSymbolName("ñ"));  
 }
-
