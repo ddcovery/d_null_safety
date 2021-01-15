@@ -2,11 +2,11 @@
 
 ## Disclaimer
 
-I really don't like dealing with nulls.  I consider this need an "anti pattern".  
+I really don't like dealing with nulls.  I consider this need an "anti pattern".  After daling with it in dart/flutter and given my experience with scala i really consider this an "anti pattern"
 
 ### The Dart (and Flutter) antipattern
 
-**Dart** (and its framework **Flutter**) **forces you to work with nulls** (i.e.: for managing "optional" funcion parameters).  The adventage is clean: with only one "constructor" or "function" you can use tens of optional parameters:
+**Dart** (and its framework **Flutter**) **forces you to work with nulls**:   (i.e.: for managing "optional" funcion parameters).  With this feature they converts a weeknes (no method overloading) to an adventage: with only one "constructor" or "function" you can use tens of optional parameters freely.
 
 ```Dart
 class Person {
