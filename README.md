@@ -70,40 +70,46 @@ final text = p.map(a=>a.father).map(a=>a.father).map(a=>a.name).getOrNull();
 ```
 And then... you will begin dealling with nulls newly.
 
-### Why I talk about Dart when I want to talk about D?... 
+### Why I'm talking about other languajes when I want to talk about D?... 
 
-Because languajes like Dart explode the "null" anti-pattern to the last consecuences and developers think that this is the correct way of thinking.
-
-This pattern is extending to other "modern" languages like Typescript (javascript evolution) or Kotlin (java evolution)
+Because functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring in Typescript is a simple but powerful especialization of pattern matching):  a wide range of "modern" languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**: Dart, Typescript, Kotlin, C#
 
 Typescript:
 ```ts
 const a = person?.father?.name?.length ?? 0;
-
 ```
+
 Kotlin:
 ```kotlin
 var a = person?.father?.name?.length ?: 0;
 ```
 
-There is a major difference between typescript (or kotlin) and dart: **in Dart, _ALL can be null_**, in typescript an kotlin you need to declare something as nullable and compiler will help you to control situations when dealing with nullable/not nullable combilation:
+There is a major difference between typescript (or kotlin or c#) and Dart: **in Dart, _ALL can be null_**, in typescript and kotlin you need to declare something explicitly as nullable and compiler will help you to control situations when dealing with nullable/not nullable combinations.  
+
+* The "coalesce" operator is really need when you assign to a not nullable type:
 
 ```typescript
-const age: number = person?.father?.age ?? 0
-const length: number = person?.name?.length ?? '
+// typescript
+const temperature: number = configuration?.referenceTemperature ?? 24;
+const length: number = person?.name?.length ?? 0;
 ```
-Because "age" or "length" is not nullable, you must specify a default value at the end of the references chain.
-If you try to avoid the default value, compiler will emmit an exception.
+```c#
+// C#
+int temperature = configuration?.referenceTemperature ?? 24;
+```
 
-If you really need a null, you must explicitly accept than age can contain a null.
+* If you really need a null, you must explicitly accept than age can contain a null.
 
 ```typescript
-const age: number|null = person?.father?.age
+// Typescript
+const lastThing: Thing|null = context?.things?.last
+```
+```c#
+// C#
+int? lastTemperature = context?.temperatures?.last
 ```
 
-Any way, it seems that functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring is a simple especialization of pattern matching)
-
-This causes that new developers perceive as a "productive" way of thinking the "null safety" syntax and **D community is not an exception**
+In summary, new developers perceive as a "productive" way of thinking the "null safety" syntax ( ?. and ?? operators) and **D community is not an exception**
 
 # Null safety with D
 
