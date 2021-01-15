@@ -24,7 +24,7 @@ if(p?.father?.father != null) {
 ```
 
 A more "functional" orientation could be **avoiding null references problem by design** using the **Option** / **Some** / **None** pattern.
-This solution forces you (because the Compiler static type checking) to work in a secure (null free) way and there is no possibility of null references exceptions.
+This solution forces you (because the Compiler static type checking) to work in a secure (null free) way and there is no possibility of null references exceptions.  
 
 ```Dart
 class Person {
@@ -40,16 +40,22 @@ if(p.map( a=>a.father).map(a=>a.father) is! None) {
   print("${p.name} has a great grand father";
 });
 
-
- p.map( a=>a.father).map(a=>a.father).match( 
-   some:(v){  
-     print("${p.name} has a great grand father named ${v.name}"; 
-   }, 
-   none: (){ 
-     print("${p.name} has not grand father";
-   }
- );
+// My favourite one: a pesudo pattern matching implementation :-)
+p.map( a=>a.father).map(a=>a.father).match( 
+  some:(v){  
+    print("${p.name} has a great grand father named ${v.name}"; 
+  }, 
+  none: (){ 
+    print("${p.name} has not grand father";
+  }
+);
 ```
+
+Of course, the problem is all flutter library is "null" dependent and you, finally, need an unwrapper that returns you "null" instead "None"
+
+final text = p.map(a=>a.father).map(a=>a.father).getOrNull();
+
+# The D alternatives
 
 Any way, if you really need to deal with null in D, you have 2 options
 
@@ -73,7 +79,7 @@ if( nullCheck(p).father.father ){
 
 Let's begin
 
-# The  "container/map/unwrap" solution
+## The  "container/map/unwrap" solution
 
 The final objective is to write thinks like:
 ```D
@@ -127,6 +133,6 @@ peter.d!"name".d!"length".get(0) == 5
 peter.d!"parent".d!"name".get == "John"
 ```
 
-# The "opDistpatch" solution
+## The "opDistpatch" solution
 
 (This was an example proposed by Steven Schveighoffer in https://forum.dlang.org/post/rtq97c$1k5f$1@digitalmars.com)
