@@ -2,7 +2,7 @@
 
 ## Disclaimer
 
-I really don't like dealing with nulls.  I consider this need an "anti pattern".  After dealing with it in dart/flutter and given my experience with scala i really consider this an "anti pattern"
+I really don't like dealing with nulls.  I consider this need an "anti pattern".  After dealing with it in dart/flutter and given my experience with scala i really consider this a bad solution, said this, I have to recognize that there is "small" differences between Dart and Typescript/Kotlin that makes the second ones integration better than D
 
 ### The Dart (and Flutter) antipattern
 
@@ -37,12 +37,12 @@ class Person {
 }
 
 final p = Some(Person(name:"Petter"));
-if(p.map( a=>a.father).map(a=>a.father) is! None) {
+if(p.flatMap( a=>a.father).flatMap(a=>a.father) is! None) {
   print("${p.name} has a great grand father";
 });
 
 // My favourite one: a pesudo pattern matching implementation :-)
-p.map( a=>a.father).map(a=>a.father).match( 
+p.flatMap( a=>a.father).flatMap(a=>a.father).match( 
   some:(v){  
     print("${p.name} has a great grand father named ${v.name}"; 
   }, 
@@ -62,9 +62,9 @@ And then... you will begin dealling with nulls newly.
 
 ### Why I talk about Dart when I want to talk about D?... 
 
-Because languajes like Dart (or Typescript) explode the "null" antipatern to the last consecuences and developers think that this is the correct way of thinking.
+Because languajes like Dart explode the "null" antipatern to the last consecuences and developers think that this is the correct way of thinking.
 
-This pattern is extending to other "modern" languages like Kotlin
+This pattern is extending to other "modern" languages like Typescript (javascript evolution) or Kotlin (java evolution)
 
 Typescript:
 ```ts
@@ -76,7 +76,24 @@ Kotlin:
 var a = person?.father?.name?.length ?: 0;
 ```
 
-It is perceived by new developers as a "productive" way of thinking and D community is not an exception
+There is a major difference between typescript (or kotlin) and dart: **in Dart, _ALL can be null_**, in typescript an kotlin you need to declare something as nullable and compiler will help you to control situations when dealing with nullable/not nullable combilation:
+
+```typescript
+const age: number = person?.father?.age ?? 0
+const length: number = person?.name?.length ?? '
+```
+Because "age" or "length" is not nullable, you must specify a default value at the end of the references chain.
+If you try to avoid the default value, compiler will emmit an exception
+
+If you really need a null, you must explicitly accept than age can contain a null.
+
+```typescript
+const age: number|null = person?.father?.age
+```
+
+Any way, it seems that functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring is a simple especialization of pattern matching)
+
+This causes that new developers perceive as a "productive" way of thinking and **D community is not an exception**
 
 # Null safety with D
 
