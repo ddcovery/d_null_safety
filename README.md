@@ -86,7 +86,7 @@ The ``get`` unwrapper **must** include a **default value** for non nullable type
 Dot!string(peter).dot(a=>a.name).dot(a=>a.length).get(0) == 5;
 ```
 
-Result can be obtained as ``Nullable!T`` monad instead unwrapping its value
+Result can be obtained as ``Nullable!T`` instead unwrapping its value
 
 ```D
 Dot!string(peter).dot(a=>a.parent).dot(a=>a.name).asNullable.isNull;
