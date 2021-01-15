@@ -51,13 +51,14 @@ p.map( a=>a.father).map(a=>a.father).match(
 );
 ```
 
-Of course, the problem is all flutter library is "null" dependent and you, finally, need an unwrapper that returns you "null" instead "None"
+Of course, the problem is all flutter library is "null" dependent and you, finally, need an unwrapper that will return "null" if no value is detected (if Noene):
+```Dart
+final text = p.map(a=>a.father).map(a=>a.father).map(a=>a.name).getOrNull();
+```
 
-final text = p.map(a=>a.father).map(a=>a.father).getOrNull();
+# Null safety with D
 
-# The D alternatives
-
-Any way, if you really need to deal with null in D, you have 2 options
+If you really need to deal with null references in D, you have 2 options
 
 * With the *if* statement
 
