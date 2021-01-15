@@ -144,7 +144,7 @@ auto age = person.ns.father.ns.father.ns.age.asNullable
 
 Let's begin
 
-## The  "container/map/unwrap" solution
+## The  "wrap/map/unwrap" solution
 
 The final objective is to write thinks like:
 ```D
