@@ -1,4 +1,77 @@
+(Work in progress!!!)
+
 # D null safety pattern with templates
+## What are we talking about
+
+Mothern languages incorporates 2 new operators: `?.` (null shortcut) and `??` (coalesce)
+* `a ?. b`:  if `a` has not value (null, ...) then complete expresion evaluates to a "not value" (null, ...) acording to ``b`` returning type. When expression incorporates a larger chain  When more than one null shortcut is applied, then the 
+
+If `b` returning type doesn' accept "not value" (null, ...) then coalesce operator must be used to dter
+* `a ?? b`:  if a evaluates to not value (null, ...) then b is used.
+
+```c#
+// c#
+int  age1 = peter?.father?.age ?? 0;  
+int? age2 = peter?.father?.age;
+```
+```typescript
+// typescript (explicit type)
+age1:number      = peter?.father?.age ?? 0;  
+age2:number|null = peter?.father?.age;       // age2 can be a number or null
+```
+```swift
+// swift
+var age1 = peter?.father?.age ?? 0;  // age1 is of type Int
+var age2 = peter?.father?.age;       // age2 is of type Int?  (Optional) . 
+```
+```dart
+// dart
+final age1 = p?.father?.father?.age ?? 0; // age1 is of type int and its value is not null
+final age2 = p?.father?.father?.age; // age2 is of type int, but it's value could be null
+```
+
+All of them incorporates the "null/nil shortcut operator" ``?.`` that stops evaluating the right side of the "." when left side evaluates to a null/nil/...
+All of them implements the "coalesce operator" ``??`` that returns a "default" value when left side evaluates to null/nil/...
+
+There is an small (important) differences between languages.
+
+* Dart types are allways nullable
+* typescript works with "unions" of types and ``null`` is a type itself:  you declare tat a variable is Type1 | Type2 | Type3 (i.e.:  number | null)
+* C# has reference types (object, string, ...) and value types (int, bool, char, ...).  variables using reference types can be null.  variables using value types can't be null, but can use the Nullable<T> container to enable "null like" values.  
+* Swift types can be Optional... Optional variables contains a value or are nil.  There is not difference between "value types" and "object types" like c#.
+  
+Then, the way ``?.`` opperator (and coalesce ?? operator) works is different in each case.
+
+* In Dart, the operator will shortcut when left side evaluates to null
+* In Typescript, the operator will shortcut when left side evaluates to null (or undefined)
+* In C#, the operator will shortcut when left side is a "null expresion":  evaluates to a null reference, or is a Nullable<T> representing a null value.
+* In switch, the operator will shorcut when left side is nil.  This is applicable only for optional values  (optional/nil pattern)
+
+## What about D
+
+D has not a "?.":  we want to generate something that help us to use a syntax to "shortcut" nullable expressions like "?." operator does.
+
+¿What "nullable" is in D?
+
+* Like C#, D has types that accept the ```null``` value and types that doesn't accept the ```null```  value.
+* D incorporates the Nullable!T struct similar tu Nullable<T> in C# that can be used to associate a "null state" to types that doesn't accept ```null```
+
+¿What about the "optional/some/none" pattern that we can find in functional programming languages?
+
+Well, D has not "monads" in it's base library: The Optional/Some/None pattern is not implemented and Nullable!T is an allien that doesn't acept the map/flat/reduce/... operations implemented for Ranges (The abstraction used by D for iterating) in the std.algorithms module.  
+
+We could implement our own Optional struct (that implements the Range "interface"), with an special method to "shortcut" the None value (and it will be a good new investigation project), but now I pretend to solve the actual null/Nullable! shortcut problem.
+
+
+  
+  
+or the second kind of   (Dynamic objects, pointers...) and variables that doens't accept '''null''  that  are references that accepts the null value (objects created with new, or a pointer to (accetps the value null) or values (doesn't accept value null).  I'm not sure
+D incorporates the Nullable!T similar to C# Nullable<T> 
+  
+  
+
+
+
 
 ## Disclaimer
 
