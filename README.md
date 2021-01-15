@@ -72,46 +72,42 @@ And then... you will begin dealling with nulls newly.
 
 ### Why I'm talking about other languajes when I want to talk about D?... 
 
-Because functional aproaching based on "Optional/None" is not succeeding as inmutability or map/reduce or pattern matching (destructuring in Typescript is a simple but powerful especialization of pattern matching):  
+Because a wide range of "modern" typed languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**.  But not all of them are really dealing with **null** as we understand in languajes like D, C o C++.
 
-A wide range of "modern" typed languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**.  That it said, not allways it deals with **null**: "swift" deals with optional/nil (similar to Optional/None)... the same with C# with Nullable values.
-
-Typescript:
-```ts
-const a = person?.father?.name?.length ?? 0;
+* swift deals with optional/nil
+* c# deals with "evaluates to null" (valid for null references and nullable value types)
+```c#
+// Not nullable type variable needs a default (coalesce) value
+decimal length = person?.father?.name?.length ?? 0;
+// Nullable variable doesn't need a default
+decimal? lastTemperature = context?.temperatures?.last
+// Reference variable
+var peter = person?.father
 ```
-
-Kotlin:
-```kotlin
-var a = person?.father?.name?.length ?: 0;
-```
-
-There is a major difference between typescript (or kotlin or c# or swift) and Dart: **in Dart, _ALL can be null_**, in typescript and kotlin you need to declare something explicitly as nullable and compiler will help you to control situations when dealing with nullable/not nullable combinations.  
-
-* The "coalesce" operator is really need when you assign to a not nullable type:
+* typescript deals with type|null (there is not a "nullable" value types or "option" wrappers), but at least you decide if a varialbe accepts or not null.
 
 ```typescript
-// typescript
-const temperature: number = configuration?.referenceTemperature ?? 24;
-const length: number = person?.name?.length ?? 0;
+// Not nullable variable needs a default (coalesce) value
+const length:number = person?.father?.name?.length ?? 0;
+// Nullable variable accepts null as a result
+const lastTemperature: number|null = context?.temperatures?.last
 ```
-```c#
-// C#
-int temperature = configuration?.referenceTemperature ?? 24;
-```
+* Dart variables allways contains a value or null... but you can use coalesce operator to avoid using null when calling with a required parameter.
 
-* If you really need a null, you must explicitly accept than age can contain a null.
+In summary, the new operators "?." and "??" are not, necessarily, a way to deal with ```nulls```, but a friendly way of dealing in each language with its different representations: some of them very close to the functional orientation, others totally based on "null".
 
-```typescript
-// Typescript
-const lastThing: Thing|null = context?.things?.last
+Developers perceive as a "productive" way of thinking the "null safety" syntax ( ?. and ?? operators) and **D community is not an exception**.  
+The main problem with D is the "heterogeneous" vision of data types:
+* there is ```null``` for references.
+* there is Nullable!T for value types.
+* there is Nullable!T for referenceable types (i.e.: classes)... that allows to wrap a null into Nullable
+```D
+    Person p = null;
+    auto x = Nullable!Person(p);
+    assert(!x.isNull);
 ```
-```c#
-// C#
-int? lastTemperature = context?.temperatures?.last
-```
+* Nullable!T is not compatible with the std.algorithm library (Nullable!T has apply, but Ranges have map, reduce, chain, join... you can not join a Range of Nullable the same way you do with Range of Ranges)
 
-In summary, new developers perceive as a "productive" way of thinking the "null safety" syntax ( ?. and ?? operators) and **D community is not an exception**
 
 # Null safety with D
 
