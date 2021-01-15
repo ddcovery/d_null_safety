@@ -48,7 +48,7 @@ if( p !is null && p.father !is null && p.father.father !is null){
   p.name.format!"%s has a great grand father".writeln();
 }
 ```
-* With any "fancy" custom template/struct/... for obtaining a "nice" way to check the nullity of a path (or a value of a path) without the need of multiple conditions:  **Take the power of D copmpile time instrocpection**
+* With any "fancy" custom template/struct/... for obtaining a "nice" way to check the nullity of a path (or a value of a path) without the need of multiple conditions:  **Exploit the power of D's compile-time templates and introspection**
 
 ```D
 // Using a  wrapper struct with an explicit property access template (p!"father" is similar to map!"a.father") and an uwrapper method (get)
