@@ -3,7 +3,10 @@
 ## Disclaimer
 
 I really don't like dealing with nulls.  I consider this need an "anti pattern".  
-Languages like **Dart** (and its framework **Flutter**) **forces you to work with nulls** (i.e.: for managing "optional" funcion parameters).  The adventage is clean: with only one "constructor" or "function" you can use tens of optional parameters:
+
+### The Dart (and Flutter) antipattern
+
+**Dart** (and its framework **Flutter**) **forces you to work with nulls** (i.e.: for managing "optional" funcion parameters).  The adventage is clean: with only one "constructor" or "function" you can use tens of optional parameters:
 
 ```Dart
 class Person {
@@ -20,7 +23,7 @@ if(p?.father?.father != null) {
 }
 ```
 
-A more "functional" orientation could be to avoid null using the Option/Some/None pattern that avoid null references problem **by design**
+A more "functional" orientation could be **avoiding null references problem by design** using the **Option** / **Some** / **None** pattern  
 
 ```Dart
 class Person {
@@ -37,7 +40,13 @@ if(Some(p).ns.father.ns.father is! None) {
 });
 ```
 
-Where **Option** is an iterable container (like a List) that allows you to work with it using map/reduce/...
+Where 
+* **Option** is an iterable container (like a List) that allows you to work with it using map/reduce/...
+* **Some** inherites from **Option** and allows you to create an Option with a value
+* **None** inherites from **Option** and allows you to create an Option without value
+* You override the "==" operator allowing to compare tow Options from it's wrapped value (or the "missing" internal attribute), 
+
+### D and templates
 
 Any way, if you really need to deal with null in D, you have 2 options
 
