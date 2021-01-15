@@ -34,7 +34,7 @@ if(p?.father?.father != null) {
 }
 ```
 
-A more "functional" orientation could be **avoiding null references problem by design** using the **Option** / **Some** / **None** pattern.
+A more "functional" orientation could **avoid null references problem by design** using the **Option** / **Some** / **None** pattern.
 This solution forces you (because the Compiler static type checking) to work in a secure (null free) way and there is no possibility of null references exceptions.  
 
 ```Dart
