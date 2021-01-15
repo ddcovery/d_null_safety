@@ -12,7 +12,7 @@ As You will see, my D proposals must decide if they are aligned with Dart (not r
 
 In **Dart**, **null is a must**:  everything is nullable. Dart languaje and it's famous framework **Flutter** are designed under this precept. Dart "tries" to avoid null errors impossing restrictions when calling functions or constructors (not in the data definition itself)
 
-Flutter practically treat all it's constructors arguments optionals (optional == accept null).   In combination with the named parameters and calling constructors without "new" keyword, it produces a "visual" declarative syntax:  I name this "productivity by visual syntax" nice to see but based on an unsafe code nature.
+Flutter practically treat all it's constructors arguments optionals (optional == accept null).   In combination with the named parameters and calling constructors without "new" keyword, it produces a "visual" declarative syntax:  I call this "productivity by visual syntax" nice to see but based on an unsafe code nature.
 
 ```Dart
 class Person {
