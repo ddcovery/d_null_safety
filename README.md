@@ -108,7 +108,12 @@ This causes that new developers perceive as a "productive" way of thinking the "
 
 # Null safety with D
 
-If you really need to deal with null references in D, you have 2 options
+>
+> Disclaimer: I'm not a D experienced developer.  This text and the examples are under construction and will change as I acquire more knowledge.
+> I really will apreciate if you propose other solutions or you criticize my proposals (in a polite way :-p)
+>
+
+If you really need to deal with null references in D, you have 2 options 
 
 * With the *if* statement
 
