@@ -2,7 +2,7 @@
 
 ## Disclaimer
 
-I really don't like dealing with nulls.  I consider this need an "anti pattern".  After daling with it in dart/flutter and given my experience with scala i really consider this an "anti pattern"
+I really don't like dealing with nulls.  I consider this need an "anti pattern".  After dealing with it in dart/flutter and given my experience with scala i really consider this an "anti pattern"
 
 ### The Dart (and Flutter) antipattern
 
@@ -52,10 +52,31 @@ p.map( a=>a.father).map(a=>a.father).match(
 );
 ```
 
-Of course, the problem is all flutter library is "null" dependent and you, finally, need an unwrapper that will return "null" if no value is detected (if Noene):
+The problem with this custom solution is that all dart/flutter libraries are "null" dependent and your effort to avoid nulls is useless.
+
+All your code will be full of expressions like
 ```Dart
 final text = p.map(a=>a.father).map(a=>a.father).map(a=>a.name).getOrNull();
 ```
+And then... you will begin dealling with nulls newly.
+
+### Why I talk about Dart when I want to talk about D?... 
+
+Because languajes like Dart (or Typescript) explode the "null" antipatern to the last consecuences and developers think that this is the correct way of thinking.
+
+This pattern is extending to other "Mothern" languages like Kotlin
+
+Typescript:
+```ts
+const a = person?.father?.name?.length ?? 0;
+
+```
+Kotlin, for example, 
+```kotlin
+var a = person?.father?.name?.length ?: 0;
+```
+
+It is perceived by new developers as a "productive" way of thinking and D community is not an exception
 
 # Null safety with D
 
