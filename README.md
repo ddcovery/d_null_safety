@@ -23,7 +23,8 @@ if(p?.father?.father != null) {
 }
 ```
 
-A more "functional" orientation could be **avoiding null references problem by design** using the **Option** / **Some** / **None** pattern  
+A more "functional" orientation could be **avoiding null references problem by design** using the **Option** / **Some** / **None** pattern.
+This solution forces you (because the Compiler static type checking) to work in a secure (null free) way and there is no possibility of null references exceptions.
 
 ```Dart
 class Person {
@@ -34,19 +35,21 @@ class Person {
   Person({@required this.name, this.surname = None(), this.birthdate = None(), this.father = None()});
 }
 
-final p = Person(name:"Petter");
-if(Some(p).ns.father.ns.father is! None) {
+final p = Some(Person(name:"Petter"));
+if(p.map( a=>a.father).map(a=>a.father) is! None) {
   print("${p.name} has a great grand father";
 });
+
+
+ p.map( a=>a.father).map(a=>a.father).match( 
+   some:(v){  
+     print("${p.name} has a great grand father named ${v.name}"; 
+   }, 
+   none: (){ 
+     print("${p.name} has not grand father";
+   }
+ );
 ```
-
-Where 
-* **Option** is an iterable container (like a List) that allows you to work with it using map/reduce/...
-* **Some** inherites from **Option** and allows you to create an Option with a value
-* **None** inherites from **Option** and allows you to create an Option without value
-* You override the "==" operator allowing to compare tow Options from it's wrapped value (or the "missing" internal attribute), 
-
-### D and templates
 
 Any way, if you really need to deal with null in D, you have 2 options
 
