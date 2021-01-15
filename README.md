@@ -72,7 +72,7 @@ And then... you will begin dealling with nulls newly.
 
 ### Why I'm talking about other languajes when I want to talk about D?... 
 
-Because functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring in Typescript is a simple but powerful especialization of pattern matching):  a wide range of "modern" languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**
+Because functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring in Typescript is a simple but powerful especialization of pattern matching):  wihe the exception of switt, a wide range of "modern" typed languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**
 
 Typescript:
 ```ts
