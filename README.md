@@ -6,7 +6,7 @@ I really don't like dealing with nulls.  I consider that normalizing null usage 
 
 That said, I have to recognize that there is "small but substantial" differences between Dart and Typescript/Kotlin/C# that makes the second ones integration better than the Dart one.
 
-As You will see, my D proposals are aligned to Typescript/Kotlin/C# ones.
+As You will see, my D proposals must decide if they are aligned with Dart (not really), with Typescript (returning a null for nullable or default for not nullable), with C#/Swift (returning Nullable!T or a Range for std.algorithm compatibility) or, may be, a mix of them.
 
 ### The Dart (and Flutter) antipattern
 
@@ -72,7 +72,9 @@ And then... you will begin dealling with nulls newly.
 
 ### Why I'm talking about other languajes when I want to talk about D?... 
 
-Because functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring in Typescript is a simple but powerful especialization of pattern matching):  wihe the exception of switt, a wide range of "modern" typed languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**
+Because functional aproaching based on "Optional/None" is not succeeding as inmutability or map/reduce or pattern matching (destructuring in Typescript is a simple but powerful especialization of pattern matching):  
+
+A wide range of "modern" typed languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**.  That it said, not allways it deals with **null**: "swift" deals with optional/nil (similar to Optional/None)... the same with C# with Nullable values.
 
 Typescript:
 ```ts
@@ -84,7 +86,7 @@ Kotlin:
 var a = person?.father?.name?.length ?: 0;
 ```
 
-There is a major difference between typescript (or kotlin or c#) and Dart: **in Dart, _ALL can be null_**, in typescript and kotlin you need to declare something explicitly as nullable and compiler will help you to control situations when dealing with nullable/not nullable combinations.  
+There is a major difference between typescript (or kotlin or c# or swift) and Dart: **in Dart, _ALL can be null_**, in typescript and kotlin you need to declare something explicitly as nullable and compiler will help you to control situations when dealing with nullable/not nullable combinations.  
 
 * The "coalesce" operator is really need when you assign to a not nullable type:
 
