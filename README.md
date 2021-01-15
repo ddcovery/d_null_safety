@@ -75,7 +75,7 @@ And then... you will begin dealling with nulls newly.
 Because a wide range of "modern" typed languajes incorporate the "Null safety" pattern in the form of **null conditional operator _?._** and **null coalesce operator _??_ / _?:_**.  But not all of them are really dealing with **null** as we understand in languajes like D, C o C++.
 
 * swift deals with optional/nil
-* c# deals with "evaluates to null" (valid for null references and nullable value types)
+* c# deals with "evaluates to null" (valid for null references and nullable value types and in modern version with nullable reference types)
 ```c#
 // Not nullable type variable needs a default (coalesce) value
 decimal length = person?.father?.name?.length ?? 0;
