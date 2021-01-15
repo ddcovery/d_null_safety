@@ -64,14 +64,14 @@ And then... you will begin dealling with nulls newly.
 
 Because languajes like Dart (or Typescript) explode the "null" antipatern to the last consecuences and developers think that this is the correct way of thinking.
 
-This pattern is extending to other "Mothern" languages like Kotlin
+This pattern is extending to other "modern" languages like Kotlin
 
 Typescript:
 ```ts
 const a = person?.father?.name?.length ?? 0;
 
 ```
-Kotlin, for example, 
+Kotlin:
 ```kotlin
 var a = person?.father?.name?.length ?: 0;
 ```
@@ -98,6 +98,8 @@ if( p.d!"father".p!"father".get is null) ...
 if( nullCheck(p).father.father ){
   writeln( format!"%s has a great grand fater"(p.name) );
 }
+// Or, may be, a mix
+if(person.d.father.p.father.p.name.get is null)
 ```
 
 Let's begin
