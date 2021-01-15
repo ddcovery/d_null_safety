@@ -73,7 +73,7 @@ And then... you will begin dealling with nulls newly.
 
 ### Why I talk about Dart when I want to talk about D?... 
 
-Because languajes like Dart explode the "null" antipatern to the last consecuences and developers think that this is the correct way of thinking.
+Because languajes like Dart explode the "null" anti-pattern to the last consecuences and developers think that this is the correct way of thinking.
 
 This pattern is extending to other "modern" languages like Typescript (javascript evolution) or Kotlin (java evolution)
 
