@@ -20,7 +20,7 @@ if(p?.father?.father != null) {
 }
 ```
 
-A more "functional" orientation could be
+A more "functional" orientation could be to avoid null using the Option/Some/None pattern that avoid null references problem **by design**
 
 ```Dart
 class Person {
