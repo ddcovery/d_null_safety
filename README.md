@@ -10,8 +10,10 @@ As You will see, my D proposals are aligned to Typescript/Kotlin ones.
 
 ### The Dart (and Flutter) antipattern
 
-**Dart** (and its framework **Flutter**) **forces you to work with nulls**:   (i.e.: for managing "optional" funcion parameters).  
-With this feature they convert a weekness (no method overloading) to an adventage: with only one "constructor" or "function" you can use tens of optional parameters freely.
+In **Dart**, **null is a must**:  everything is nullable. Dart languaje and it's famous framework **Flutter** are designed under this precept. 
+
+This is exploited to deal with other languaje weackness (i.e.: no method overloading):  Flutter practically treat all it's constructors arguments optional (nullable).  In combination with the named parameters syntax it produces a "visual" declarative syntax which hides a horrible fact: the compiler is not protecting you against misuse of nulls
+
 
 ```Dart
 class Person {
@@ -22,7 +24,12 @@ class Person {
   Person({@required this.name, this.surname, this.birthdate, this.father});
 }
 
-Person p = Person(name:"Petter");
+Person p = Person(
+  name:"Petter", 
+  father: Person(
+    name:"John"
+  ),
+);
 if(p?.father?.father != null) {
   print("${p.name} has a great grand father";
 }
@@ -87,7 +94,7 @@ const age: number = person?.father?.age ?? 0
 const length: number = person?.name?.length ?? '
 ```
 Because "age" or "length" is not nullable, you must specify a default value at the end of the references chain.
-If you try to avoid the default value, compiler will emmit an exception
+If you try to avoid the default value, compiler will emmit an exception.
 
 If you really need a null, you must explicitly accept than age can contain a null.
 
@@ -97,7 +104,7 @@ const age: number|null = person?.father?.age
 
 Any way, it seems that functional aproaching for dealing with "null" is not succeeding as inmutability or map/reduce or pattern matching (destructuring is a simple especialization of pattern matching)
 
-This causes that new developers perceive as a "productive" way of thinking and **D community is not an exception**
+This causes that new developers perceive as a "productive" way of thinking the "null safety" syntax and **D community is not an exception**
 
 # Null safety with D
 
