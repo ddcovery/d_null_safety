@@ -92,7 +92,7 @@ const length:number = person?.father?.name?.length ?? 0;
 // Nullable variable accepts null as a result
 const lastTemperature: number|null = context?.temperatures?.last
 ```
-* Dart variables allways contains a value or null... but you can use coalesce operator to avoid using null when calling with a required parameter.
+* Dart variables allways contains a value or null... but you can use coalesce operator to avoid using null when calling functions with required parameters.
 
 In summary, the new operators "?." and "??" are not, necessarily, a way to deal with ```nulls```, but a friendly way of dealing in each language with its different representations: some of them very close to the functional orientation, others totally based on "null".
 
