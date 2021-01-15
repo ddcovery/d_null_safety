@@ -98,8 +98,9 @@ if( p.d!"father".p!"father".get is null) ...
 if( nullCheck(p).father.father ){
   writeln( format!"%s has a great grand fater"(p.name) );
 }
-// Or, may be, a mix
-if(person.d.father.p.father.p.name.get is null)
+// Or, may be, a mix f
+if(person.ns.father.ns.father.ns.name.get is null){...}
+auto age = person.ns.father.ns.father.ns.age.get(0);
 ```
 
 Let's begin
