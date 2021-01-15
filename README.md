@@ -6,7 +6,8 @@ I really don't like dealing with nulls.  I consider this need an "anti pattern".
 
 ### The Dart (and Flutter) antipattern
 
-**Dart** (and its framework **Flutter**) **forces you to work with nulls**:   (i.e.: for managing "optional" funcion parameters).  With this feature they converts a weeknes (no method overloading) to an adventage: with only one "constructor" or "function" you can use tens of optional parameters freely.
+**Dart** (and its framework **Flutter**) **forces you to work with nulls**:   (i.e.: for managing "optional" funcion parameters).  
+With this feature they convert a weekness (no method overloading) to an adventage: with only one "constructor" or "function" you can use tens of optional parameters freely.
 
 ```Dart
 class Person {
