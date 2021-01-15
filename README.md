@@ -128,12 +128,13 @@ if( p !is null && p.father !is null && p.father.father !is null){
 // Using a  wrapper struct with an explicit property access template (p!"father" is similar to map!"a.father") and an uwrapper method (get)
 if( p.d!"father".d!"father".get is null) ...
 // A wrapper with an opDispatch allowing you using the name of the real properties to check it's nullity:
+// (Thanks to Steven Schveighoffer)
 if( nullCheck(p).father.father ){
   writeln( format!"%s has a great grand fater"(p.name) );
 }
 // Or, may be, a mix of them
-if(person.ns.father.ns.father.ns.name.get is null){...}
 auto age = person.ns.father.ns.father.ns.age.get(0);
+auto age = person.ns.father.ns.father.ns.age.asNullable
 ```
 
 Let's begin
