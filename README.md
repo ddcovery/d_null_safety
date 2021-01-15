@@ -2,7 +2,7 @@
 
 ## Disclaimer
 
-I really don't like dealing with nulls.  I consider this need an "anti pattern".  After dealing with it in dart/flutter and given my experience with scala i really consider this a bad solution.  
+I really don't like dealing with nulls.  I consider that normalizing null usage when not mandatory is an "anti pattern".  After dealing with it in dart/flutter and given my experience with scala i really consider this a bad solution.  
 
 That said, I have to recognize that there is "small but substantial" differences between Dart and Typescript/Kotlin that makes the second ones integration better than the Dart one.
 
